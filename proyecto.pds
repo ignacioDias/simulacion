@@ -1,0 +1,196 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = project/VehicleArrivalGenerator.h
+    Parameters = 4.000000e+01,4.320000e+04
+   }
+    Coordinator
+     {
+      Simulator
+       {
+        Path = project/EntryQueue.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = project/EntryDetector.h
+        Parameters = 
+       }
+      EIC
+       {
+        (0,0);(0,0)
+        (0,1);(0,1)
+       }
+      EOC
+       {
+        (1,0);(0,0)
+       }
+      IC
+       {
+        (0,0);(1,0)
+       }
+     }
+    Coordinator
+     {
+      Simulator
+       {
+        Path = project/EntryCoordinator.h
+        Parameters = 3.000000e+00
+       }
+      Simulator
+       {
+        Path = project/OccupancyTracker.h
+        Parameters = 3.000000e+01
+       }
+      Simulator
+       {
+        Path = project/ExitCoordinator.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = sinks/to_disk.h
+        Parameters = "occupancy.csv"
+       }
+      EIC
+       {
+        (0,0);(0,1)
+        (0,1);(2,0)
+       }
+      EOC
+       {
+        (0,1);(0,0)
+        (0,2);(0,2)
+        (2,1);(0,1)
+       }
+      IC
+       {
+        (0,0);(1,0)
+        (1,0);(0,0)
+        (2,0);(1,1)
+        (1,1);(3,0)
+       }
+     }
+  Simulator
+   {
+    Path = project/ExitGate.h
+    Parameters = 4.000000e+00,1.000000e+00,3.000000e+00
+   }
+  Simulator
+   {
+    Path = project/ParkingLot.h
+    Parameters = 3.000000e+02,1.200000e+02
+   }
+  Simulator
+   {
+    Path = project/EntryGate.h
+    Parameters = 4.000000e+00,1.000000e+00,3.000000e+00
+   }
+    Coordinator
+     {
+      Simulator
+       {
+        Path = project/RejectionCounter.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = project/VehicleRegistry.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = project/DwellTimeAuditor.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = sinks\to_disk.h
+        Parameters = "rejection.csv"
+       }
+      Simulator
+       {
+        Path = sinks/to_disk.h
+        Parameters = "entrygate.csv"
+       }
+      Simulator
+       {
+        Path = sinks\to_disk.h
+        Parameters = "exitgate.csv"
+       }
+      Simulator
+       {
+        Path = sinks\to_disk.h
+        Parameters = "dewlltime.csv"
+       }
+      EIC
+       {
+        (0,0);(0,0)
+        (0,1);(1,0)
+        (0,2);(2,0)
+       }
+      EOC
+       {
+       }
+      IC
+       {
+        (1,2);(2,1)
+        (0,0);(3,0)
+        (1,0);(4,0)
+        (1,1);(5,0)
+        (2,0);(6,0)
+       }
+     }
+    Coordinator
+     {
+      Simulator
+       {
+        Path = project/ExitQueue.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = project/ExitDetector.h
+        Parameters = 1.000000e+00
+       }
+      EIC
+       {
+        (0,0);(0,0)
+        (0,1);(0,1)
+       }
+      EOC
+       {
+        (1,0);(0,0)
+       }
+      IC
+       {
+        (0,0);(1,0)
+       }
+     }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (0,0);(1,1)
+    (1,0);(2,0)
+    (2,0);(5,0)
+    (2,1);(3,0)
+    (2,2);(4,0)
+    (5,0);(4,0)
+    (5,1);(6,1)
+    (4,0);(7,0)
+    (7,0);(2,1)
+    (3,0);(7,1)
+    (3,0);(6,1)
+    (5,1);(1,0)
+    (4,0);(6,2)
+    (5,0);(6,0)
+    (3,0);(2,1)
+    (5,1);(2,0)
+   }
+ }

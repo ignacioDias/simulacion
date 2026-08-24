@@ -1,0 +1,925 @@
+Coupled
+    {
+    Type = Root
+    Name = SmartParkingSystem
+    Ports = 0; 0
+    Description = 
+    Graphic
+        {
+        Position = 0; 0
+        Dimension = 600; 600
+        Direction = Right
+        Color = 15
+        Icon = 
+        Window = 5000; 5000; 5000; 5000
+        }
+    Parameters
+        {
+        }
+    System
+        {
+        Atomic
+            {
+            Name = VehicleArrivalGenerator
+            Ports = 0 ; 1
+            Path = project/VehicleArrivalGenerator.h
+            Description = Arrival Generator: simulates the arrival of vehicles to the parking system by generating arrivals at exponentially distributed intervals. It continues creating new vehicles until the simulation time reaches the configured maximum duration (`maxTime`).\n
+            Graphic
+                {
+                Position = 1020 ; -5880
+                Dimension = 675 ; 675
+                Direction = Left
+                Color = 15
+                Icon = None
+                }
+            Parameters
+                {
+                mean = Val; 40 ; exp
+                max_time = Val; 43200 ; 
+                }
+            }
+        Coupled
+            {
+            Type = Coordinator
+            Name = EntryDetectionSubsystem
+            Ports = 2; 1
+            Description = Coupled DEVS model
+            Graphic
+                {
+                Position = -2205; -5310
+                Dimension = 675; 720
+                Direction = Down
+                Color = 15
+                Icon = %basicelements%coupled.svg
+                Window = 5000; 5000; 5000; 5000
+                }
+            Parameters
+                {
+                }
+            System
+                {
+                Inport
+                    {
+                    Name = Gate
+                    CoupledPort = 1
+                    Description = 
+                    Graphic
+                        {
+                        Position = -9465 ; -2550
+                        Dimension = 480
+                        Direction = Right
+                        }
+                    }
+                Inport
+                    {
+                    Name = Generator
+                    CoupledPort = 2
+                    Description = 
+                    Graphic
+                        {
+                        Position = -9465 ; -825
+                        Dimension = 480
+                        Direction = Right
+                        }
+                    }
+                Outport
+                    {
+                    Name = AccessController
+                    CoupledPort = 1
+                    Description = 
+                    Graphic
+                        {
+                        Position = 285 ; -1725
+                        Dimension = 480
+                        Direction = Right
+                        }
+                    }
+                Atomic
+                    {
+                    Name = EntryQueue
+                    Ports = 2 ; 1
+                    Path = project/EntryQueue.h
+                    Description = Atomic DEVS model
+                    Graphic
+                        {
+                        Position = -6480 ; -2055
+                        Dimension = 675 ; 675
+                        Direction = Right
+                        Color = 15
+                        Icon = None
+                        }
+                    Parameters
+                        {
+                        }
+                    }
+                Atomic
+                    {
+                    Name = EntryDetector
+                    Ports = 1 ; 1
+                    Path = project/EntryDetector.h
+                    Description = Atomic DEVS model
+                    Graphic
+                        {
+                        Position = -3180 ; -2085
+                        Dimension = 675 ; 720
+                        Direction = Right
+                        Color = 15
+                        Icon = None
+                        }
+                    Parameters
+                        {
+                        }
+                    }
+                Line
+                    {
+                    Source = Prt ;  1 ;  1 ; 0
+                    Sink = Cmp ;  1 ;  1 ; -1
+                    PointX = -8850 ; -7125 ; -7125 ; -6615
+                    PointY = -2550 ; -2550 ; -1875 ; -1875
+                    }
+                Line
+                    {
+                    Source = Prt ;  2 ;  1 ; 0
+                    Sink = Cmp ;  1 ;  2 ; -1
+                    PointX = -8850 ; -7125 ; -7125 ; -6615
+                    PointY = -825 ; -825 ; -1575 ; -1575
+                    }
+                Line
+                    {
+                    Source = Cmp ;  1 ;  1 ; 0
+                    Sink = Cmp ;  2 ;  1 ; -1
+                    PointX = -5700 ; -5700 ; -3315
+                    PointY = -1725 ; -1725 ; -1725
+                    }
+                Line
+                    {
+                    Source = Cmp ;  2 ;  1 ; 0
+                    Sink = Prt ;  3 ;  1 ; -1
+                    PointX = -2400 ; -2400 ; 135
+                    PointY = -1725 ; -1725 ; -1725
+                    }
+                }
+            }
+                Coupled
+                    {
+                    Type = Coordinator
+                    Name = AccessController
+                    Ports = 2; 3
+                    Description = Coupled DEVS model
+                    Graphic
+                        {
+                        Position = -2055; -2985
+                        Dimension = 675; 720
+                        Direction = Down
+                        Color = 15
+                        Icon = %basicelements%coupled.svg
+                        Window = 5000; 5000; 5000; 5000
+                        }
+                    Parameters
+                        {
+                        }
+                    System
+                        {
+                        Inport
+                            {
+                            Name = Inputs
+                            CoupledPort = 1
+                            Description = 
+                            Graphic
+                                {
+                                Position = -19740 ; -5550
+                                Dimension = 480
+                                Direction = Right
+                                }
+                            }
+                        Inport
+                            {
+                            Name = Outputs
+                            CoupledPort = 2
+                            Description = 
+                            Graphic
+                                {
+                                Position = -19740 ; -3150
+                                Dimension = 480
+                                Direction = Right
+                                }
+                            }
+                        Outport
+                            {
+                            Name = EntryGate
+                            CoupledPort = 1
+                            Description = 
+                            Graphic
+                                {
+                                Position = -10815 ; -5700
+                                Dimension = 480
+                                Direction = Right
+                                }
+                            }
+                        Outport
+                            {
+                            Name = ExitGate
+                            CoupledPort = 2
+                            Description = 
+                            Graphic
+                                {
+                                Position = -10740 ; -3000
+                                Dimension = 480
+                                Direction = Right
+                                }
+                            }
+                        Outport
+                            {
+                            Name = ParkingLot
+                            CoupledPort = 3
+                            Description = 
+                            Graphic
+                                {
+                                Position = -10815 ; -1125
+                                Dimension = 480
+                                Direction = Right
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = EntryCoordinator
+                            Ports = 2 ; 3
+                    Path = project/EntryCoordinator.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = -17055 ; -6030
+                                Dimension = 675 ; 675
+                                Direction = Right
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                delay = Val; 3 ; 
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = OccupancyTracker
+                            Ports = 2 ; 2
+                    Path = project/OccupancyTracker.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = -13755 ; -6855
+                                Dimension = 675 ; 675
+                                Direction = Right
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                max_capacity = Val; 30 ; 
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = ExitCoordinator
+                            Ports = 1 ; 2
+                    Path = project/ExitCoordinator.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = -13905 ; -3480
+                                Dimension = 675 ; 675
+                                Direction = Right
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = occupancyLog
+                            Ports = 1 ; 0
+                            Path = sinks/to_disk.h
+                            Description = Save the values (event,t) in a file.
+                            Graphic
+                                {
+                                Position = -9255 ; -6705
+                                Dimension = 675 ; 675
+                                Direction = Right
+                                Color = 15
+                                Icon = %sinks%todisk.svg
+                                }
+                            Parameters
+                                {
+                                File = Str; occupancy.csv ; file name
+                                }
+                            }
+                        Line
+                            {
+                            Source = Prt ;  1 ;  1 ; 0
+                            Sink = Cmp ;  1 ;  2 ; -1
+                            PointX = -19125 ; -19125 ; -17190
+                            PointY = -5550 ; -5550 ; -5550
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  1 ;  1 ; 0
+                            Sink = Cmp ;  2 ;  1 ; -1
+                            PointX = -16275 ; -15975 ; -15975 ; -13890
+                            PointY = -5850 ; -5850 ; -6675 ; -6675
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  2 ;  1 ; 0
+                            Sink = Cmp ;  1 ;  1 ; -1
+                            PointX = -12975 ; -12675 ; -12675 ; -17400 ; -17400 ; -17190
+                            PointY = -6675 ; -6675 ; -7950 ; -7950 ; -5850 ; -5850
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  1 ;  2 ; 0
+                            Sink = Prt ;  3 ;  1 ; -1
+                            PointX = -16275 ; -16275 ; -10965
+                            PointY = -5700 ; -5700 ; -5700
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  1 ;  3 ; 0
+                            Sink = Prt ;  5 ;  1 ; -1
+                            PointX = -16275 ; -15975 ; -15975 ; -10965
+                            PointY = -5475 ; -5475 ; -1125 ; -1125
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  3 ;  2 ; 0
+                            Sink = Prt ;  4 ;  1 ; -1
+                            PointX = -13125 ; -13125 ; -10890
+                            PointY = -3000 ; -3000 ; -3000
+                            }
+                        Line
+                            {
+                            Source = Prt ;  2 ;  1 ; 0
+                            Sink = Cmp ;  3 ;  1 ; -1
+                            PointX = -19125 ; -19125 ; -14040
+                            PointY = -3150 ; -3150 ; -3150
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  3 ;  1 ; 0
+                            Sink = Cmp ;  2 ;  2 ; -1
+                            PointX = -13125 ; -12675 ; -12675 ; -15300 ; -15300 ; -13890
+                            PointY = -3300 ; -3300 ; -4350 ; -4350 ; -6375 ; -6375
+                            }
+                        Line
+                            {
+                            Source = Cmp ;  2 ;  2 ; 0
+                            Sink = Cmp ;  4 ;  1 ; -1
+                            PointX = -12975 ; -12975 ; -9390
+                            PointY = -6375 ; -6375 ; -6375
+                            }
+                        }
+                    }
+                        Atomic
+                            {
+                            Name = ExitGate
+                            Ports = 1 ; 1
+                    Path = project/ExitGate.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = 1170 ; -960
+                                Dimension = 675 ; 720
+                                Direction = Right
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                barrer_time = Val; 4 ; 
+                                min_time_cross = Val; 1 ; 
+                                max_time_cross = Val; 3 ; 
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = ParkingLot
+                            Ports = 1 ; 1
+                    Path = project/ParkingLot.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = -5580 ; -960
+                                Dimension = 675 ; 720
+                                Direction = Left
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                max_time_parked = Val; 300 ; 
+                                min_time_parked = Val; 120 ; 
+                                }
+                            }
+                        Atomic
+                            {
+                            Name = EntryGate
+                            Ports = 1 ; 2
+                    Path = project/EntryGate.h
+                            Description = Atomic DEVS model
+                            Graphic
+                                {
+                                Position = -5580 ; -2580
+                                Dimension = 675 ; 675
+                                Direction = Up
+                                Color = 15
+                                Icon = None
+                                }
+                            Parameters
+                                {
+                                barrer_time = Val; 4 ; 
+                                min_time_cross = Val; 1 ; 
+                                max_time_cross = Val; 3 ; 
+                                }
+                            }
+                        Coupled
+                            {
+                            Type = Coordinator
+                            Name = MetricsMonitor
+                            Ports = 3; 0
+                            Description = Coupled DEVS model
+                            Graphic
+                                {
+                                Position = -8355; -3285
+                                Dimension = 675; 720
+                                Direction = Right
+                                Color = 15
+                                Icon = %basicelements%coupled.svg
+                                Window = 5000; 5000; 5000; 5000
+                                }
+                            Parameters
+                                {
+                                }
+                            System
+                                {
+                                Inport
+                                    {
+                                    Name = Rejections
+                                    CoupledPort = 1
+                                    Description = 
+                                    Graphic
+                                        {
+                                        Position = -14265 ; -3600
+                                        Dimension = 480
+                                        Direction = Right
+                                        }
+                                    }
+                                Inport
+                                    {
+                                    Name = VehicleEvents
+                                    CoupledPort = 2
+                                    Description = 
+                                    Graphic
+                                        {
+                                        Position = -14265 ; -1875
+                                        Dimension = 480
+                                        Direction = Right
+                                        }
+                                    }
+                                Inport
+                                    {
+                                    Name = ParkingDurations
+                                    CoupledPort = 3
+                                    Description = 
+                                    Graphic
+                                        {
+                                        Position = -14265 ; 75
+                                        Dimension = 480
+                                        Direction = Right
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = RejectionCounter
+                                    Ports = 1 ; 1
+                    Path = project/RejectionCounter.h
+                                    Description = Atomic DEVS model
+                                    Graphic
+                                        {
+                                        Position = -10230 ; -3960
+                                        Dimension = 675 ; 720
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = None
+                                        }
+                                    Parameters
+                                        {
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = VehicleRegistry
+                                    Ports = 1 ; 3
+                    Path = project/VehicleRegistry.h
+                                    Description = Atomic DEVS model
+                                    Graphic
+                                        {
+                                        Position = -10230 ; -2205
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = None
+                                        }
+                                    Parameters
+                                        {
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = DwellTimeAuditor
+                                    Ports = 2 ; 1
+                    Path = project/DwellTimeAuditor.h
+                                    Description = Atomic DEVS model
+                                    Graphic
+                                        {
+                                        Position = -8505 ; -1080
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = None
+                                        }
+                                    Parameters
+                                        {
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = RejectionLog
+                                    Ports = 1 ; 0
+                                    Path = sinks\to_disk.h
+                                    Description = Save the values (event,t) in a file.
+                                    Graphic
+                                        {
+                                        Position = -5655 ; -3930
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = %sinks%todisk.svg
+                                        }
+                                    Parameters
+                                        {
+                                        File = Str; rejection.csv ; file name
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = EntryGateMetrics
+                                    Ports = 1 ; 0
+                                    Path = sinks/to_disk.h
+                                    Description = Save the values (event,t) in a file.
+                                    Graphic
+                                        {
+                                        Position = -5205 ; -2805
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = %sinks%todisk.svg
+                                        }
+                                    Parameters
+                                        {
+                                        File = Str; entrygate.csv ; file name
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = ExitGateMetrics
+                                    Ports = 1 ; 0
+                                    Path = sinks\to_disk.h
+                                    Description = Save the values (event,t) in a file.
+                                    Graphic
+                                        {
+                                        Position = -5205 ; -1530
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = %sinks%todisk.svg
+                                        }
+                                    Parameters
+                                        {
+                                        File = Str; exitgate.csv ; file name
+                                        }
+                                    }
+                                Atomic
+                                    {
+                                    Name = DwellTimeLog
+                                    Ports = 1 ; 0
+                                    Path = sinks\to_disk.h
+                                    Description = Save the values (event,t) in a file.
+                                    Graphic
+                                        {
+                                        Position = -6780 ; -1080
+                                        Dimension = 675 ; 675
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = %sinks%todisk.svg
+                                        }
+                                    Parameters
+                                        {
+                                        File = Str; dewlltime.csv ; file name
+                                        }
+                                    }
+                                Line
+                                    {
+                                    Source = Prt ;  1 ;  1 ; 0
+                                    Sink = Cmp ;  1 ;  1 ; -1
+                                    PointX = -13650 ; -13650 ; -10365
+                                    PointY = -3600 ; -3600 ; -3600
+                                    }
+                                Line
+                                    {
+                                    Source = Prt ;  2 ;  1 ; 0
+                                    Sink = Cmp ;  2 ;  1 ; -1
+                                    PointX = -13650 ; -13650 ; -10365
+                                    PointY = -1875 ; -1875 ; -1875
+                                    }
+                                Line
+                                    {
+                                    Source = Prt ;  3 ;  1 ; 0
+                                    Sink = Cmp ;  3 ;  1 ; -1
+                                    PointX = -13650 ; -9225 ; -9225 ; -8640
+                                    PointY = 75 ; 75 ; -900 ; -900
+                                    }
+                                Line
+                                    {
+                                    Source = Cmp ;  2 ;  3 ; 0
+                                    Sink = Cmp ;  3 ;  2 ; -1
+                                    PointX = -9450 ; -9000 ; -9000 ; -8640
+                                    PointY = -1650 ; -1650 ; -600 ; -600
+                                    }
+                                Line
+                                    {
+                                    Source = Cmp ;  1 ;  1 ; 0
+                                    Sink = Cmp ;  4 ;  1 ; -1
+                                    PointX = -9450 ; -9450 ; -5790
+                                    PointY = -3600 ; -3600 ; -3600
+                                    }
+                                Line
+                                    {
+                                    Source = Cmp ;  2 ;  1 ; 0
+                                    Sink = Cmp ;  5 ;  1 ; -1
+                                    PointX = -9450 ; -5775 ; -5775 ; -5340
+                                    PointY = -2025 ; -2025 ; -2475 ; -2475
+                                    }
+                                Line
+                                    {
+                                    Source = Cmp ;  2 ;  2 ; 0
+                                    Sink = Cmp ;  6 ;  1 ; -1
+                                    PointX = -9450 ; -5775 ; -5775 ; -5340
+                                    PointY = -1875 ; -1875 ; -1200 ; -1200
+                                    }
+                                Line
+                                    {
+                                    Source = Cmp ;  3 ;  1 ; 0
+                                    Sink = Cmp ;  7 ;  1 ; -1
+                                    PointX = -7725 ; -7725 ; -6915
+                                    PointY = -750 ; -750 ; -750
+                                    }
+                                }
+                            }
+                                Coupled
+                                    {
+            Type = Coordinator
+            Name = ExitDetectionSubsystem
+                                    Ports = 2; 1
+                                    Description = Coupled DEVS model
+                                    Graphic
+                                        {
+                                        Position = -2130; 1140
+                                        Dimension = 675; 720
+                                        Direction = Right
+                                        Color = 15
+                                        Icon = %basicelements%coupled.svg
+                                        Window = 5000; 5000; 5000; 5000
+                                        }
+                                    Parameters
+                                        {
+                                        }
+                                    System
+                                        {
+                                        Inport
+                                            {
+                                            Name = ParkingLot
+                                            CoupledPort = 1
+                                            Description = 
+                                            Graphic
+                                                {
+                                                Position = -17115 ; -3900
+                                                Dimension = 480
+                                                Direction = Right
+                                                }
+                                            }
+                                        Inport
+                                            {
+                                            Name = ExitGate
+                                            CoupledPort = 2
+                                            Description = 
+                                            Graphic
+                                                {
+                                                Position = -17115 ; -1950
+                                                Dimension = 480
+                                                Direction = Right
+                                                }
+                                            }
+                                        Outport
+                                            {
+                                            Name = AccessController
+                                            CoupledPort = 1
+                                            Description = 
+                                            Graphic
+                                                {
+                                                Position = -9315 ; -2850
+                                                Dimension = 480
+                                                Direction = Right
+                                                }
+                                            }
+                                        Atomic
+                                            {
+                                            Name = ExitQueue
+                                            Ports = 2 ; 1
+                    Path = project/ExitQueue.h
+                                            Description = Atomic DEVS model
+                                            Graphic
+                                                {
+                                                Position = -13755 ; -3180
+                                                Dimension = 675 ; 675
+                                                Direction = Right
+                                                Color = 15
+                                                Icon = None
+                                                }
+                                            Parameters
+                                                {
+                                                }
+                                            }
+                                        Atomic
+                                            {
+                                            Name = ExitDetector
+                                            Ports = 1 ; 1
+                    Path = project/ExitDetector.h
+                                            Description = Atomic DEVS model
+                                            Graphic
+                                                {
+                                                Position = -11655 ; -3210
+                                                Dimension = 675 ; 720
+                                                Direction = Right
+                                                Color = 15
+                                                Icon = None
+                                                }
+                                            Parameters
+                                                {
+                                                latency = Val; 1 ; 
+                                                }
+                                            }
+                                        Line
+                                            {
+                                            Source = Prt ;  1 ;  1 ; 0
+                                            Sink = Cmp ;  1 ;  1 ; -1
+                                            PointX = -16500 ; -14400 ; -14400 ; -13890
+                                            PointY = -3900 ; -3900 ; -3000 ; -3000
+                                            }
+                                        Line
+                                            {
+                                            Source = Prt ;  2 ;  1 ; 0
+                                            Sink = Cmp ;  1 ;  2 ; -1
+                                            PointX = -16500 ; -16500 ; -14400 ; -14400 ; -13890
+                                            PointY = -1950 ; -1950 ; -1950 ; -2700 ; -2700
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  1 ;  1 ; 0
+                                            Sink = Cmp ;  2 ;  1 ; -1
+                                            PointX = -12975 ; -12975 ; -11790
+                                            PointY = -2850 ; -2850 ; -2850
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  2 ;  1 ; 0
+                                            Sink = Prt ;  3 ;  1 ; -1
+                                            PointX = -10875 ; -10875 ; -9465
+                                            PointY = -2850 ; -2850 ; -2850
+                                            }
+                                        }
+                                    }
+                                        Line
+                                            {
+                                            Source = Cmp ;  1 ;  1 ; 0
+                                            Sink = Cmp ;  2 ;  2 ; -1
+                                            PointX = 900 ; -1725 ; -1725
+                                            PointY = -5550 ; -5550 ; -5415
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  2 ;  1 ; 0
+                                            Sink = Cmp ;  3 ;  1 ; -1
+                                            PointX = -1875 ; -1875 ; -1875
+                                            PointY = -4500 ; -4500 ; -3090
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  3 ;  1 ; 0
+                                            Sink = Cmp ;  6 ;  1 ; -1
+                                            PointX = -1950 ; -1950 ; -5250 ; -5250
+                                            PointY = -2175 ; -1425 ; -1425 ; -1785
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  3 ;  2 ; 0
+                                            Sink = Cmp ;  4 ;  1 ; -1
+                                            PointX = -1725 ; -1725 ; 1035
+                                            PointY = -2175 ; -600 ; -600
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  3 ;  3 ; 0
+                                            Sink = Cmp ;  5 ;  1 ; -1
+                                            PointX = -1500 ; -1500 ; -1500 ; -4785
+                                            PointY = -2175 ; -2175 ; -600 ; -600
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  6 ;  1 ; 0
+                                            Sink = Cmp ;  5 ;  1 ; -1
+                                            PointX = -5400 ; -5400 ; -4200 ; -4200 ; -4425 ; -4425 ; -4785
+                                            PointY = -2700 ; -3000 ; -3000 ; -825 ; -825 ; -600 ; -600
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  6 ;  2 ; 0
+                                            Sink = Cmp ;  7 ;  2 ; -1
+                                            PointX = -5100 ; -5100 ; -5400 ; -5400 ; -9675 ; -9675 ; -8490
+                                            PointY = -2700 ; -3225 ; -3225 ; -5850 ; -5850 ; -2925 ; -2925
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  5 ;  1 ; 0
+                                            Sink = Cmp ;  8 ;  1 ; -1
+                                            PointX = -5700 ; -8025 ; -8025 ; -2265
+                                            PointY = -600 ; -600 ; 1350 ; 1350
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  8 ;  1 ; 0
+                                            Sink = Cmp ;  3 ;  2 ; -1
+                                            PointX = -1350 ; 0 ; 0 ; -1575 ; -1575
+                                            PointY = 1500 ; 1500 ; -3450 ; -3450 ; -3090
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  4 ;  1 ; 0
+                                            Sink = Cmp ;  8 ;  2 ; -1
+                                            PointX = 1950 ; 1950 ; 2775 ; 2775 ; -2625 ; -2625 ; -2265
+                                            PointY = -600 ; -225 ; -225 ; 2700 ; 2700 ; 1650 ; 1650
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  4 ;  1 ; 0
+                                            Sink = Cmp ;  7 ;  2 ; -1
+                                            PointX = 1950 ; 1950 ; 3750 ; 3750 ; -9525 ; -9525 ; -8925 ; -8925 ; -8490
+                                            PointY = -600 ; -600 ; -600 ; 3525 ; 3525 ; -2775 ; -2775 ; -2925 ; -2925
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  6 ;  2 ; 0
+                                            Sink = Cmp ;  2 ;  1 ; -1
+                                            PointX = -5100 ; -5100 ; -4875 ; -4875 ; -2025 ; -2025
+                                            PointY = -2700 ; -3225 ; -3225 ; -6300 ; -6300 ; -5415
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  5 ;  1 ; 0
+                                            Sink = Cmp ;  7 ;  3 ; -1
+                                            PointX = -5700 ; -5700 ; -6075 ; -6075 ; -9375 ; -9375 ; -8625 ; -8625 ; -8490
+                                            PointY = -600 ; -600 ; -600 ; -975 ; -975 ; -2550 ; -2550 ; -2700 ; -2700
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  6 ;  1 ; 0
+                                            Sink = Cmp ;  7 ;  1 ; -1
+                                            PointX = -5400 ; -5400 ; -5700 ; -5700 ; -9900 ; -9900 ; -8490
+                                            PointY = -2700 ; -3000 ; -3000 ; -4800 ; -4800 ; -3150 ; -3150
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  4 ;  1 ; 0
+                                            Sink = Cmp ;  3 ;  2 ; -1
+                                            PointX = 1950 ; 1950 ; 1950 ; 2775 ; 2775 ; -1200 ; -1200 ; -1575 ; -1575
+                                            PointY = -600 ; -600 ; -1200 ; -1200 ; -3825 ; -3825 ; -3450 ; -3450 ; -3090
+                                            }
+                                        Line
+                                            {
+                                            Source = Cmp ;  6 ;  2 ; 0
+                                            Sink = Cmp ;  3 ;  1 ; -1
+                                            PointX = -5100 ; -5100 ; -5100 ; -3525 ; -3525 ; -1875 ; -1875
+                                            PointY = -2700 ; -2700 ; -6675 ; -6675 ; -3450 ; -3450 ; -3090
+                                            }
+        }
+    }
