@@ -22,7 +22,7 @@ Coupled
             {
             Name = VehicleArrivalGenerator
             Ports = 0 ; 1
-            Path = project/VehicleArrivalGenerator.h
+            Path = project/vehicle_arrival_generator.h
             Description = Arrival Generator: simulates the arrival of vehicles to the parking system by generating arrivals at exponentially distributed intervals. It continues creating new vehicles until the simulation time reaches the configured maximum duration (`maxTime`).\n
             Graphic
                 {
@@ -98,7 +98,7 @@ Coupled
                     {
                     Name = EntryQueue
                     Ports = 2 ; 1
-                    Path = project/EntryQueue.h
+                    Path = project/entry_queue.h
                     Description = Atomic DEVS model
                     Graphic
                         {
@@ -116,7 +116,7 @@ Coupled
                     {
                     Name = EntryDetector
                     Ports = 1 ; 1
-                    Path = project/EntryDetector.h
+                    Path = project/entry_detector.h
                     Description = Atomic DEVS model
                     Graphic
                         {
@@ -244,7 +244,7 @@ Coupled
                             {
                             Name = EntryCoordinator
                             Ports = 2 ; 3
-                    Path = project/EntryCoordinator.h
+                    Path = project/entry_coordinator.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -263,7 +263,7 @@ Coupled
                             {
                             Name = OccupancyTracker
                             Ports = 2 ; 2
-                    Path = project/OccupancyTracker.h
+                    Path = project/occupancy_tracker.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -282,7 +282,7 @@ Coupled
                             {
                             Name = ExitCoordinator
                             Ports = 1 ; 2
-                    Path = project/ExitCoordinator.h
+                    Path = project/exit_coordinator.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -384,7 +384,7 @@ Coupled
                             {
                             Name = ExitGate
                             Ports = 1 ; 1
-                    Path = project/ExitGate.h
+                    Path = project/exit_gate.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -405,7 +405,7 @@ Coupled
                             {
                             Name = ParkingLot
                             Ports = 1 ; 1
-                    Path = project/ParkingLot.h
+                    Path = project/parking_lot.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -425,7 +425,7 @@ Coupled
                             {
                             Name = EntryGate
                             Ports = 1 ; 2
-                    Path = project/EntryGate.h
+                    Path = project/entry_gate.h
                             Description = Atomic DEVS model
                             Graphic
                                 {
@@ -502,7 +502,7 @@ Coupled
                                     {
                                     Name = RejectionCounter
                                     Ports = 1 ; 1
-                    Path = project/RejectionCounter.h
+                    Path = project/rejection_counter.h
                                     Description = Atomic DEVS model
                                     Graphic
                                         {
@@ -520,7 +520,7 @@ Coupled
                                     {
                                     Name = VehicleRegistry
                                     Ports = 1 ; 3
-                    Path = project/VehicleRegistry.h
+                    Path = project/vehicle_registry.h
                                     Description = Atomic DEVS model
                                     Graphic
                                         {
@@ -538,7 +538,7 @@ Coupled
                                     {
                                     Name = DwellTimeAuditor
                                     Ports = 2 ; 1
-                    Path = project/DwellTimeAuditor.h
+                    Path = project/dwell_time_auditor.h
                                     Description = Atomic DEVS model
                                     Graphic
                                         {
@@ -746,7 +746,7 @@ Coupled
                                             {
                                             Name = ExitQueue
                                             Ports = 2 ; 1
-                    Path = project/ExitQueue.h
+                    Path = project/exit_queue.h
                                             Description = Atomic DEVS model
                                             Graphic
                                                 {
@@ -764,7 +764,7 @@ Coupled
                                             {
                                             Name = ExitDetector
                                             Ports = 1 ; 1
-                    Path = project/ExitDetector.h
+                    Path = project/exit_detector.h
                                             Description = Atomic DEVS model
                                             Graphic
                                                 {

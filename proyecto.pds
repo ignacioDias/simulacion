@@ -2,19 +2,19 @@ Root-Coordinator
  {
   Simulator
    {
-    Path = project/VehicleArrivalGenerator.h
+    Path = project/vehicle_arrival_generator.h
     Parameters = 4.000000e+01,4.320000e+04
    }
     Coordinator
      {
       Simulator
        {
-        Path = project/EntryQueue.h
+        Path = project/entry_queue.h
         Parameters = 
        }
       Simulator
        {
-        Path = project/EntryDetector.h
+        Path = project/entry_detector.h
         Parameters = 
        }
       EIC
@@ -35,17 +35,17 @@ Root-Coordinator
      {
       Simulator
        {
-        Path = project/EntryCoordinator.h
+        Path = project/entry_coordinator.h
         Parameters = 3.000000e+00
        }
       Simulator
        {
-        Path = project/OccupancyTracker.h
+        Path = project/occupancy_tracker.h
         Parameters = 3.000000e+01
        }
       Simulator
        {
-        Path = project/ExitCoordinator.h
+        Path = project/exit_coordinator.h
         Parameters = 
        }
       Simulator
@@ -74,34 +74,34 @@ Root-Coordinator
      }
   Simulator
    {
-    Path = project/ExitGate.h
+    Path = project/exit_gate.h
     Parameters = 4.000000e+00,1.000000e+00,3.000000e+00
    }
   Simulator
    {
-    Path = project/ParkingLot.h
+    Path = project/parking_lot.h
     Parameters = 3.000000e+02,1.200000e+02
    }
   Simulator
    {
-    Path = project/EntryGate.h
+    Path = project/entry_gate.h
     Parameters = 4.000000e+00,1.000000e+00,3.000000e+00
    }
     Coordinator
      {
       Simulator
        {
-        Path = project/RejectionCounter.h
+        Path = project/rejection_counter.h
         Parameters = 
        }
       Simulator
        {
-        Path = project/VehicleRegistry.h
+        Path = project/vehicle_registry.h
         Parameters = 
        }
       Simulator
        {
-        Path = project/DwellTimeAuditor.h
+        Path = project/dwell_time_auditor.h
         Parameters = 
        }
       Simulator
@@ -146,12 +146,12 @@ Root-Coordinator
      {
       Simulator
        {
-        Path = project/ExitQueue.h
+        Path = project/exit_queue.h
         Parameters = 
        }
       Simulator
        {
-        Path = project/ExitDetector.h
+        Path = project/exit_detector.h
         Parameters = 1.000000e+00
        }
       EIC

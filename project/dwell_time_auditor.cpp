@@ -1,0 +1,45 @@
+#include "dwell_time_auditor.h"
+void dwell_time_auditor::init(double t,...) {
+	va_list parameters;
+	va_start(parameters,t);
+	
+	sigma = INF;
+	parkingData.clear();
+}
+double dwell_time_auditor::ta(double t) {
+  return sigma;
+}
+void dwell_time_auditor::dint(double t) {
+	sigma = INF;
+}
+
+void dwell_time_auditor::dext(Event x, double t) {
+	std::pair<VehicleId, Time>* xv = (std::pair<VehicleId, Time>*)x.value;
+	VehicleId vehicleId = xv->first;
+	Time time_value = xv->second; 
+
+	if (x.port == 1) {
+		parkingData[vehicleId] = time_value;
+	}
+	else if (x.port == 0) {
+		if (parkingData.count(vehicleId)) {
+			Time parking_time = parkingData[vehicleId]; 
+			Time total_sys_time = time_value;      
+			Time exit_delay = total_sys_time - parking_time;
+			outputData.vehicleId = vehicleId;
+			outputData.assignedTime = parking_time;
+			outputData.exitDelay = exit_delay;
+			outputData.simulationTime = t;
+			parkingData.erase(vehicleId);
+			sigma = 0;
+		} else {
+			printLog("[Dwell time auditor] Exit recorded without a prior entry: %.0f\n", vehicleId);
+			sigma = INF;
+		}
+	}
+}
+Event dwell_time_auditor::lambda(double t) {
+  return Event(&outputData, 0);
+}
+void dwell_time_auditor::exit() {
+}
