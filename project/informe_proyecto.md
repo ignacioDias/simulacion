@@ -218,21 +218,9 @@ Y genera los gráficos en `output/plots/`:
 - **Conexión inerte** `entry_gate.out0 → parking_lot.in0`: transmite `DenyEntry`
   que `parking_lot` ignora; no aporta funcionalidad y confunde la lectura del
   modelo.
-- **Tipografía `dewlltime.csv`:** el nombre amanece con un typo
-  ("dewll" por "dwell"); el analizador lo tolera, pero conviene unificarlo.
-- **Semántica del auditor de permanencia:** `occupancy_tracker` y
-  `vehicle_registry` combinan tiempos *alocados* (estadía prevista) y *medidos*
-  (diferencia entrada–salida); el reporte de `dwell_time_auditor` debería
-  basarse solo en tiempos observados para evitar interpretaciones ambiguas.
-- **Dependencia de puertos "mágicos":** varios modelos usan índices de puerto
-  literales (0/1) en `dext`/`lambda`; `entry_coordinator` ya define constantes
-  con nombre, práctica que conviene extender al resto.
-
 ---
 
 ## 4. Sugerencias de mejora
-
-### 4.1 Modelado y lógica
 
 1. **Resolver el bloqueo por rechazo en la cola de entrada.** Al denegar un
    vehículo, la cadena debe liberar al siguiente: por ejemplo, conectar también
@@ -249,50 +237,6 @@ Y genera los gráficos en `output/plots/`:
    del modelo (ya lo son vía editor) y documentar su rango válido.
 6. **Estadística de tiempos de espera en las colas** (agregar estados de
    sincronización con sello de tiempo de ingreso a la cola).
-
-### 4.2 Código e implementación
-
-7. **Reemplazar puertos mágicos por constantes** simbólicas (como ya hace
-   `entry_coordinator`) en todas los archivos.
-8. **Usar tipos fuertes para las señales de "paso"** en lugar de enviar un valor
-   no utilizado; por ejemplo, un `InternalSignal::Pass` evita casts y facilita
-   el trazado.
-9. **Elegir semilla aleatoria configurable** (parámetro) y documentar que la
-   reproducibilidad requiere una semilla fija.
-10. **Consistencia de nombres de archivos de salida:** corregir `dewlltime.csv`
-    a `dwelltime.csv` (o `duraciones.csv`) en `.pdm`/`.pds` y actualizar el
-    analizador; mantener el alias en el analizador por compatibilidad.
-11. **Comentarios de trazabilidad** en `dext`/`lambda` indicando qué puerto
-    recibe/envía qué tipo (el informe presente en este documento podría
-    mantenerse como referencia `docs/`).
-
-### 4.3 Experimentación y análisis
-
-12. **Múltiples réplicas con distintas semillas** y cálculo de intervalos de
-    confianza para la tasa de rechazo y la ocupación media.
-13. **Añadir periodo de calentamiento (warm-up)** y descartar la ocupación
-    transitoria en las métricas ponderadas.
-14. **Análisis de sensibilidad** ante variaciones de: tiempo medio entre arribos
-    (40 s → 15–60 s), estadía (120–300 s) y capacidad (30 → 10–50). El umbral
-    de saturación se encuentra donde la tasa de arribos × estadía media
-    (~1 vehículo cada 40 s × ~210 s ≈ 5.25 vehículos) se acerca a la capacidad.
-15. **Nuevas métricas y gráficos:** longitud de cola, tiempo total en sistema
-    (llegada → egreso), distribución de permanencia (histograma), y utilización
-    real de barreras (medida, no estimada con `--barrier-cycle`).
-16. **Verificación de invariantes temporal:** que cada `VehicleAccepted` tenga su
-    par `VehicleExited` y que `entry`/`exit` con el mismo `vehicle_id` sean
-    consistentes (el analizador ya lo chequea parcialmente).
-
-### 4.4 Entorno y mantenimiento
-
-17. **Documentar el flujo de construcción** (PowerDEVS → `build/model.h` →
-    `make -f Makefile`) y regenerar `model.h` desde el `.pdm` activo cada vez
-    que cambie la topología (los artefactos generados pueden sobrescribirse).
-18. **Mantener alineados** `proyecto.pdm`/`proyecto.pds` con los archivos
-    atómicos (nombres, `class`, constructores y `Path`), como indica el flujo
-    de trabajo descrito en `AGENTS.md`.
-19. **Agregar pruebas automatizadas** del analizador sobre CSVs sintéticos
-    (casos: archivo vacío, ocupación > capacidad, vehículo sin egreso).
 
 ---
 
